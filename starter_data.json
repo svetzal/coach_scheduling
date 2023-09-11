@@ -1,0 +1,14 @@
+[
+  {
+    "coach": "Coach_A",
+    "area": "Area_1",
+    "skills": ["leadership", "technical"],
+    "duration": 6,
+    "affinity_score": 7,
+    "charter": {
+      "objectives": ["Improve team collaboration", "Streamline DevOps"],
+      "status": "approved"
+    }
+  }
+]
+
