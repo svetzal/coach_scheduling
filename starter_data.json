@@ -1,14 +1,53 @@
-[
-  {
-    "coach": "Coach_A",
-    "area": "Area_1",
-    "skills": ["leadership", "technical"],
-    "duration": 6,
-    "affinity_score": 7,
-    "charter": {
-      "objectives": ["Improve team collaboration", "Streamline DevOps"],
-      "status": "approved"
-    }
-  }
-]
-
+{
+    "coaches": [
+        "Coach 1",
+        "Coach 2",
+        "Coach 3",
+        "Coach 4"
+    ],
+    "areas": [
+        "Area 1",
+        "Area 2",
+        "Area 3",
+        "Area 4"
+    ],
+    "simultaneous_assignments": 2,
+    "assignments": [
+        {
+            "coaches": {
+                "prime": "Coach 1",
+                "second": "Coach 2"
+            },
+            "area": "Area 1",
+            "start_date": "2023-11-01",
+            "end_date": "2023-12-13"
+        },
+        {
+            "coaches": {
+                "prime": "Coach 3",
+                "second": "Coach 4"
+            },
+            "area": "Area 2",
+            "start_date": "2023-11-08",
+            "end_date": "2023-12-20"
+        },
+        {
+            "coaches": {
+                "prime": "Coach 1",
+                "second": "Coach 2"
+            },
+            "area": "Area 3",
+            "start_date": "2023-11-15",
+            "end_date": "2023-12-27"
+        },
+        {
+            "coaches": {
+                "prime": "Coach 3",
+                "second": "Coach 4"
+            },
+            "area": "Area 4",
+            "start_date": "2023-11-22",
+            "end_date": "2024-01-03"
+        }
+    ]
+}
