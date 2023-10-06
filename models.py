@@ -7,9 +7,19 @@ class EngagementInterval(BaseModel):
     quantity: int = Field(..., description="The quantity of units for the interval")
 
 
+class SkillSet(BaseModel):
+    leadership: float = Field(..., description="The leadership skill level")
+    practices: float = Field(..., description="The practices skill level")
+    technical: float = Field(..., description="The technical skill level")
+
+    class Config:
+        frozen = True
+
+
 class Coach(BaseModel):
     name: str = Field(..., description="The name of the coach")
     weekly_availability: float = Field(..., description="The number of hours the coach is available per week")
+    skill_set: SkillSet = Field(..., description="The skill set of the coach")
 
     class Config:
         frozen = True
@@ -17,6 +27,14 @@ class Coach(BaseModel):
 
 class Area(BaseModel):
     name: str = Field(..., description="The name of the area")
+
+    class Config:
+        frozen = True
+
+
+class AreaNeed(BaseModel):
+    area: Area = Field(..., description="The area")
+    skill_set: SkillSet = Field(..., description="The skill set needed")
 
     class Config:
         frozen = True
@@ -48,17 +66,21 @@ class CoachHistory(BaseModel):
     service_assignment: ServiceAssignment = Field(..., description="The service assignment")
 
 
+class Backlog(BaseModel):
+    area_needs: list[AreaNeed] = Field(..., description="The backlog of area needs")
+
+
 class Schedule(BaseModel):
     start_date: object = Field(..., description="The start date of the schedule")
     end_date: object = Field(..., description="The end date of the schedule")
     assignments: list[ServiceAssignment] = Field(..., description="The schedule of service assignments")
 
     @property
-    def areas(self) -> list[Area]:
+    def scheduled_areas(self) -> list[Area]:
         return list(set([assignment.area for assignment in self.assignments]))
 
     @property
-    def coaches(self) -> list[Coach]:
+    def scheduled_coaches(self) -> list[Coach]:
         return list(set([coach for assignment in self.assignments for coach in assignment.coaches]))
 
     @property

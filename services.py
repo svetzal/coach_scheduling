@@ -1,7 +1,8 @@
 import pandas as pd
 
-from models import EngagementInterval, Coach, Area, CoachFormationModel, ServiceModel, ServiceAssignment, Schedule
-from renderers import PlainTextCalendarRenderer
+from models import EngagementInterval, Coach, Area, CoachFormationModel, ServiceModel, ServiceAssignment, Schedule, \
+    SkillSet
+from renderers import PlainTextCalendarRenderer, TailwindHtmlScheduleRender
 
 six_week_interval = EngagementInterval(
     unit="week",
@@ -50,10 +51,10 @@ one_on_one = ServiceModel(
     formation=one_on_one_formation_model
 )
 
-coach_1 = Coach(name="Coach 1", weekly_availability=30)
-coach_2 = Coach(name="Coach 2", weekly_availability=30)
-coach_3 = Coach(name="Coach 3", weekly_availability=30)
-coach_4 = Coach(name="Coach 4", weekly_availability=30)
+coach_1 = Coach(name="Coach 1", weekly_availability=30, skill_set=SkillSet(leadership=0.5, practices=0.5, technical=0.5))
+coach_2 = Coach(name="Coach 2", weekly_availability=30, skill_set=SkillSet(leadership=0.5, practices=0.5, technical=0.5))
+coach_3 = Coach(name="Coach 3", weekly_availability=30, skill_set=SkillSet(leadership=0.5, practices=0.5, technical=0.5))
+coach_4 = Coach(name="Coach 4", weekly_availability=30, skill_set=SkillSet(leadership=0.5, practices=0.5, technical=0.5))
 coaches = [coach_1, coach_2, coach_3, coach_4]
 pair_1 = [coach_1, coach_2]
 pair_2 = [coach_3, coach_4]
@@ -93,8 +94,12 @@ print(f"\nCalendar Total business days: {schedule.business_days}")
 print(f"Calendar assigned days: {schedule.assigned_days}")
 print(f"Duty cycle: {schedule.duty_cycle}")
 
-unserviced_areas = [area for area in areas if area not in schedule.areas]
+unserviced_areas = [area for area in areas if area not in schedule.scheduled_areas]
 print(f"\nUnserviced areas: {unserviced_areas}")
 
-unused_coaches = [coach for coach in coaches if coach not in schedule.coaches]
+unused_coaches = [coach for coach in coaches if coach not in schedule.scheduled_coaches]
 print(f"Unused coaches: {unused_coaches}")
+
+html = TailwindHtmlScheduleRender(schedule)
+with open("schedule.html", "w") as f:
+    f.write(html.render())
