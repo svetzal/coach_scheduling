@@ -90,8 +90,8 @@ print("\nCentral Calendar\n\n", renderer.main_calendar())
 print("\nCoach Calendars\n\n", renderer.coach_calendar())
 print("\nArea Calendars\n\n", renderer.area_calendar())
 
-print(f"\nCalendar Total business days: {schedule.business_days}")
-print(f"Calendar assigned days: {schedule.assigned_days}")
+print(f"\nCalendar Total business days: {schedule.total_business_days}")
+print(f"Calendar assigned days: {schedule.total_assigned_days}")
 print(f"Duty cycle: {schedule.duty_cycle}")
 
 unserviced_areas = [area for area in areas if area not in schedule.scheduled_areas]
@@ -103,3 +103,5 @@ print(f"Unused coaches: {unused_coaches}")
 html = TailwindHtmlScheduleRender(schedule)
 with open("schedule.html", "w") as f:
     f.write(html.render())
+
+

@@ -84,16 +84,16 @@ class Schedule(BaseModel):
         return list(set([coach for assignment in self.assignments for coach in assignment.coaches]))
 
     @property
-    def business_days(self) -> int:
+    def total_business_days(self) -> int:
         return len(pd.bdate_range(start=self.start_date, end=self.end_date, freq="C"))
 
     @property
-    def assigned_days(self) -> int:
+    def total_assigned_days(self) -> int:
         return len(set([date for assignment in self.assignments for date in assignment.date_range]))
 
     @property
     def duty_cycle(self) -> float:
-        return self.assigned_days / self.business_days
+        return self.total_assigned_days / self.total_business_days
 
     def add_assignment(self, assignment: ServiceAssignment):
         self.assignments.append(assignment)
